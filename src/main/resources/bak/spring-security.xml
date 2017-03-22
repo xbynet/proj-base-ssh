@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+                   http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+           
+     <context:property-placeholder location="classpath:common.properties"/>	
+     <beans:bean id="defaultUserAuthenticationService" class="net.xby1993.springmvc.security.service.DefaultUserAuthenticationService"/>
+	<global-method-security pre-post-annotations="enabled" jsr250-annotations="enabled" access-decision-manager-ref="methodAccessDecisionManager" >
+	 <expression-handler ref="methodSecurityExpressionHandler"/>
+	</global-method-security>
+	<authentication-manager alias="authenticationManager"> <!-- AuthenticationManager管理AuthenticationProvider管理UserService管理User认证信息获取 -->
+		<authentication-provider
+        				 user-service-ref="defaultUserAuthenticationService">
+			<password-encoder hash="bcrypt" />
+		</authentication-provider>
+	</authentication-manager>
+	<http security="none" pattern="/resource/**" />
+
+	<http  use-expressions="true"  access-decision-manager-ref="webAccessDecisionManager">   <!-- use-expressions="true"开启SpEL -->
+		<expression-handler ref="webSecurityExpressionHandler"/>
+		<!-- invalid-session-url指定处理Session超时的URL  -->
+		<!--会话固定攻击防护，有几种选择：changeSessionId(只支持Servlet3.1以上),migrateSession(默认选项，将创建新的会话并复制所有现有特性),newSession,none -->
+		<session-management session-fixation-protection="migrateSession" invalid-session-url="${host}/sessiontimeout"> 
+			<concurrency-control max-sessions="1" expired-url="${host}/login?maxSessions=1" /> <!--限制用户会话数量，为了启用该特性，记得配置前面所讲的特殊的监听器 -->
+		</session-management>
+		<!-- <remember-me key="myAppName" token-validity-seconds="2419200" />提供记住我功能，提供一个字段名为_spring_security_remember_me的复选框，如果使用Java配置时字段名为remember-me -->
+		<!-- login-page登录页面 ，
+			login-processing-url并不也不能是实际地址，只是对于Spring Security一个标识，如果前台提交表单地址是这个就处理登录认证
+			authentication-failure-url登录认证失败地址
+			default-target-url如果是用户直接输入登录地址进行登录，那么登录成功后将进入该页面，否则就进入原先的页面。
+			
+			logout-url也是一个标记地址，不能是实际地址。用于Spring-Security处理退出。
+			logout-success-url退出成功后进入的页面。
+			-->
+			
+		<form-login login-page="${host}/login?page=1" 
+			login-processing-url="/login11"  
+			authentication-failure-url="${host}/login?error=1"
+			default-target-url="${host}/home/"  
+			username-parameter="username"
+			password-parameter="password"/>
+			<logout logout-url="/logout" logout-success-url="${host}/index"
+				invalidate-session="true" delete-cookies="JSESSIONID" />
+			<intercept-url pattern="/index" access="permitAll" />
+			<intercept-url pattern="/login" access="permitAll" />
+			<intercept-url pattern="/logout" access="permitAll" />
+			<intercept-url pattern="/captcha/**" access="permitAll" />
+			<intercept-url pattern="/home" access="hasAuthority('ROLE_USER')" />
+			<intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
+			<intercept-url pattern="/ueditorUpload/**" access="hasAuthority('ROLE_ADMIN')" />
+			<intercept-url pattern="/upload/**" access="hasAuthority('ROLE_ADMIN')" />
+
+	</http>
+	 <!-- 角色继承 -->   
+   <beans:bean id="roleHierarchy"
+      class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+      <beans:property name="hierarchy"><!-- 角色继承关系 -->
+         <beans:value>
+            ROLE_ADMIN > ROLE_USER
+         </beans:value>
+      </beans:property>
+   </beans:bean>
+     <beans:bean id="roleHierarchyVoter"
+      class="org.springframework.security.access.vote.RoleHierarchyVoter">
+      <beans:constructor-arg ref="roleHierarchy" />
+   </beans:bean>
+ <!-- 用于web的ExpressionHandler -->
+    <beans:bean id="webSecurityExpressionHandler" name="webSecurityExpressionHandler"
+                class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
+        <beans:property name="roleHierarchy" ref="roleHierarchy"/>
+    </beans:bean>
+ 
+    <!-- 用于method的ExpressionHandler -->
+    <beans:bean id="methodSecurityExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+        <beans:property name="roleHierarchy" ref="roleHierarchy"/>
+    </beans:bean>
+   <!-- 用于web的ExpressionHandler -->   
+ <beans:bean id="webAccessDecisionManager"  
+    class="org.springframework.security.access.vote.AffirmativeBased">  
+    <beans:property name="decisionVoters">  
+        <beans:list>  
+            <beans:bean class="org.springframework.security.web.access.expression.WebExpressionVoter">
+                    <beans:property name="expressionHandler" ref="webSecurityExpressionHandler"/>
+                </beans:bean>
+                <beans:ref bean="roleHierarchyVoter" />  
+                <beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+        </beans:list>  
+    </beans:property>  
+</beans:bean> 
+ <!-- 用于method的AccessDecisionManager -->
+    <beans:bean id="methodAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:bean class="org.springframework.security.access.vote.RoleHierarchyVoter">
+                    <beans:constructor-arg ref="roleHierarchy"/>
+                </beans:bean>
+                <beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+                <beans:bean class="org.springframework.security.access.prepost.PreInvocationAuthorizationAdviceVoter">
+                    <beans:constructor-arg name="pre">
+                        <beans:bean class="org.springframework.security.access.expression.method.ExpressionBasedPreInvocationAdvice">
+                            <beans:property name="expressionHandler" ref="methodSecurityExpressionHandler"/>
+                        </beans:bean>
+                    </beans:constructor-arg>
+                </beans:bean>
+                <beans:bean class="org.springframework.security.access.annotation.Jsr250Voter"/>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+</beans:beans>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+<!-- 
+单机配置：http://blog.csdn.net/sadfishsc/article/details/50808027
+http://blog.csdn.net/defonds/article/details/49496895
+
+配置共分四步：
+配置实际执行业务逻辑类，即普通的spring bean
+配置JobDetail类，如上例中的MethodInvokingJobDetailFactoryBean，该工厂类需要指定执行业务逻辑的bean及调用的方法名
+配置Trigger（任务触发）类，如上例中的CronTriggerFactoryBean，是基于cron表达式触发任务，需要指定JobDetail和cron表达式
+配置scheduler（定时任务）类，如上例中的SchedulerFactoryBean，是将trigger注册到定时任务中，使trigger生效
+
+  For times when you just need to invoke a method on a specific object   
+    <bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <property name="targetObject" ref="myBean" />  
+        <property name="targetMethod" value="printMessage" />  
+    </bean>  
+   
+   
+    For times when you need more complex processing, passing data to the scheduled job   
+    <bean name="firstComplexJobDetail"    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
+        <property name="jobClass" value="com.defonds.scheduler.jobs.FirstScheduledJob" />  
+        <property name="jobDataMap">  
+            <map>  
+                <entry key="anotherBean" value-ref="anotherBean" />  
+            </map>  
+        </property>  
+        <property name="durability" value="true" />  
+    </bean>  
+      
+    <bean name="secondComplexJobDetail"    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
+        <property name="jobClass" value="com.defonds.scheduler.jobs.SecondScheduledJob" />  
+        <property name="durability" value="true" />  
+    </bean>  
+   
+   
+    <bean id="simpleTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
+        <property name="jobDetail" ref="simpleJobDetail" />  
+        <property name="startDelay" value="1000" />  
+        <property name="repeatInterval" value="2000" />  
+    </bean>  
+   
+   
+    <bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail" ref="firstComplexJobDetail" />  
+        <property name="cronExpression" value="0/5 * * ? * *" />  
+          
+    </bean>  
+      
+   
+    <bean id="secondCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail" ref="secondComplexJobDetail" />  
+        <property name="cronExpression" value="0 0 20 ? * *" />  
+    </bean>  
+   
+   
+    <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+        <property name="jobDetails">  
+            <list>  
+                <ref bean="simpleJobDetail" />  
+                <ref bean="firstComplexJobDetail" />  
+                <ref bean="secondComplexJobDetail" />  
+            </list>  
+        </property>  
+   
+        <property name="triggers">  
+            <list>  
+                <ref bean="simpleTrigger" />  
+                <ref bean="cronTrigger" />  
+                <ref bean="secondCronTrigger" />  
+            </list>  
+        </property>  
+    </bean>  
+-->
+
+
+<!--
+集群配置：http://www.cnblogs.com/aaronfeng/p/5537177.html
+  -->
+</beans>
