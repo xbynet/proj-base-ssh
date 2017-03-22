@@ -66,9 +66,4 @@ public class PageResults<T> {
         this.totalCount = totalCount;
     }
  
-    public void resetPageNo() {
-        pageNo = currentPage + 1;
-        pageCount = totalCount % pageSize == 0 ? totalCount / pageSize
-                : totalCount / pageSize + 1;
-    }
 }
