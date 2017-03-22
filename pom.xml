@@ -288,7 +288,7 @@
 			<version>1.4.1</version>
 		</dependency>
 		
-		<!--
+	
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -305,7 +305,7 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.6.2</version>
 		</dependency>
-		  -->
+		
 	</dependencies>
 
 	<profiles>
