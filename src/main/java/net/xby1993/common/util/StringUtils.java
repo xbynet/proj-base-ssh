@@ -85,6 +85,13 @@ public class StringUtils {
 		commaStr=commaStr.substring(0, commaStr.length()-1);
 		return commaStr;
 	}
+	public static boolean isEmpty(String str) {
+		return ((str == null) || (str.length() == 0));
+	}
+
+	public static boolean isNotEmpty(String str) {
+		return (!(isEmpty(str)));
+	}
 
 	/**
 	 * 根据指定格式获取日期字符串
@@ -136,6 +143,59 @@ public class StringUtils {
 			return stb.toString();
 		}
 		return name;
+	}
+	
+	public static String substringBefore(String str, String separator) {
+		if ((isEmpty(str)) || (separator == null)) {
+			return str;
+		}
+		if (separator.length() == 0) {
+			return "";
+		}
+		int pos = str.indexOf(separator);
+		if (pos == -1) {
+			return str;
+		}
+		return str.substring(0, pos);
+	}
+
+	public static String substringAfter(String str, String separator) {
+		if (isEmpty(str)) {
+			return str;
+		}
+		if (separator == null) {
+			return "";
+		}
+		int pos = str.indexOf(separator);
+		if (pos == -1) {
+			return "";
+		}
+		return str.substring(pos + separator.length());
+	}
+
+	public static String substringBeforeLast(String str, String separator) {
+		if ((isEmpty(str)) || (isEmpty(separator))) {
+			return str;
+		}
+		int pos = str.lastIndexOf(separator);
+		if (pos == -1) {
+			return str;
+		}
+		return str.substring(0, pos);
+	}
+
+	public static String substringAfterLast(String str, String separator) {
+		if (isEmpty(str)) {
+			return str;
+		}
+		if (isEmpty(separator)) {
+			return "";
+		}
+		int pos = str.lastIndexOf(separator);
+		if ((pos == -1) || (pos == str.length() - separator.length())) {
+			return "";
+		}
+		return str.substring(pos + separator.length());
 	}
 	public static void main(String[] args) {
 		System.out.println(columnToFieldName("is_aasAasd"));
