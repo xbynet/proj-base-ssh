@@ -1,4 +1,4 @@
-package com.myapp.util;
+package demo.ipproxy.com.myapp.util;
 
 
 import java.io.IOException;

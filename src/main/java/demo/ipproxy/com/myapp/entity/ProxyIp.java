@@ -1,4 +1,4 @@
-package com.myapp.entity;
+package demo.ipproxy.com.myapp.entity;
 
 /**
  * Created by gaorui on 16/12/26.

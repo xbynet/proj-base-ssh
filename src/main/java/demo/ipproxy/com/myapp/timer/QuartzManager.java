@@ -1,4 +1,4 @@
-package com.myapp.timer; /**
+package demo.ipproxy.com.myapp.timer; /**
  * Created by gaorui on 17/1/9.
  */
 /**

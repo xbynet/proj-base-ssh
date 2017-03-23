@@ -1,16 +1,10 @@
-package com.myapp.timer;
+package demo.ipproxy.com.myapp.timer;
 
-/**
- * Created by gaorui on 17/1/9.
- */
-
-
-import org.apache.tools.ant.Main;
 import org.quartz.JobExecutionException;
 
-import com.myapp.client.Client;
-import com.myapp.main.main;
-import com.myapp.redis.LoadMemory;
+import demo.ipproxy.com.myapp.client.Client;
+import demo.ipproxy.com.myapp.main.main;
+import demo.ipproxy.com.myapp.redis.LoadMemory;
 
 
 public class Timer {

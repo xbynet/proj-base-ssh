@@ -1,9 +1,9 @@
-package com.myapp.crawer;
-
-import com.myapp.entity.ProxyIp;
+package demo.ipproxy.com.myapp.crawer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import demo.ipproxy.com.myapp.entity.ProxyIp;
 
 /**
  * Created by gaorui on 16/12/26.

@@ -1,15 +1,14 @@
-package com.myapp.main;
+package demo.ipproxy.com.myapp.main;
 
-import com.myapp.client.Client;
-import com.myapp.proxy.HttpProxy;
-import com.myapp.proxy.ProxyPool;
-import com.myapp.util.HttpStatus;
-import com.myapp.util.ProxyIpCheck;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.util.TimerTask;
+import demo.ipproxy.com.myapp.client.Client;
+import demo.ipproxy.com.myapp.proxy.HttpProxy;
+import demo.ipproxy.com.myapp.proxy.ProxyPool;
+import demo.ipproxy.com.myapp.util.HttpStatus;
+import demo.ipproxy.com.myapp.util.ProxyIpCheck;
 
 /**
  * Created by gaorui on 16/12/28.

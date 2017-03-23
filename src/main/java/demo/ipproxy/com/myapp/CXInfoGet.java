@@ -1,4 +1,4 @@
-package com.myapp;
+package demo.ipproxy.com.myapp;
 
 import java.io.File;
 import java.util.ArrayList;

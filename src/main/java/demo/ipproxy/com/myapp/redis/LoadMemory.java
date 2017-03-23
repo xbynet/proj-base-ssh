@@ -1,17 +1,15 @@
-package com.myapp.redis;
+package demo.ipproxy.com.myapp.redis;
 
-import com.myapp.client.Client;
-import com.myapp.proxy.ProxyPool;
-import com.myapp.timer.QuartzManager;
-import com.myapp.timer.Timer;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import redis.clients.jedis.Jedis;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import demo.ipproxy.com.myapp.client.Client;
+import demo.ipproxy.com.myapp.proxy.ProxyPool;
+import redis.clients.jedis.Jedis;
 
 /**
  * Created by gaorui on 17/1/9.

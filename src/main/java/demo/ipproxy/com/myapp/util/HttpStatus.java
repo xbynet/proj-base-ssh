@@ -1,4 +1,4 @@
-package com.myapp.util;
+package demo.ipproxy.com.myapp.util;
 
 /**
  * Created by gaorui on 16/12/26.

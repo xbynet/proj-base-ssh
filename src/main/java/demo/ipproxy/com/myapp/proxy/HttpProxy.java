@@ -1,8 +1,4 @@
-package com.myapp.proxy;
-
-import com.myapp.util.HttpStatus;
-import com.myapp.util.IpUtils;
-
+package demo.ipproxy.com.myapp.proxy;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -13,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
+
+import demo.ipproxy.com.myapp.util.HttpStatus;
+import demo.ipproxy.com.myapp.util.IpUtils;
 
 /**
  * Created by gaorui on 16/12/26.

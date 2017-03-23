@@ -1,12 +1,12 @@
-package com.myapp.crawer.impl;
+package demo.ipproxy.com.myapp.crawer.impl;
 
 
-import com.myapp.crawer.ProxyIpCrawer;
-import com.myapp.entity.ProxyIp;
-import com.myapp.util.CrawerBase;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import demo.ipproxy.com.myapp.crawer.ProxyIpCrawer;
+import demo.ipproxy.com.myapp.entity.ProxyIp;
+import demo.ipproxy.com.myapp.util.CrawerBase;
 
 /**
  * Created by gaorui on 16/12/26.

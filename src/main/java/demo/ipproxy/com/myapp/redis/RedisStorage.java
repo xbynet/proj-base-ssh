@@ -1,6 +1,6 @@
-package com.myapp.redis;
+package demo.ipproxy.com.myapp.redis;
 
-import com.myapp.proxy.HttpProxy;
+import demo.ipproxy.com.myapp.proxy.HttpProxy;
 import redis.clients.jedis.Jedis;
 
 /**

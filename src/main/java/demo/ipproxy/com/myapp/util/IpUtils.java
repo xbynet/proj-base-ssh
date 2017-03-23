@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.myapp.util;
+package demo.ipproxy.com.myapp.util;
 
 
 import java.net.InetAddress;

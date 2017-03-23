@@ -1,4 +1,4 @@
-package com.myapp.util;
+package demo.ipproxy.com.myapp.util;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

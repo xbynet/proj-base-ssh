@@ -1,14 +1,13 @@
-package com.myapp.proxy;
-
-import com.myapp.redis.RedisStorage;
-import com.myapp.util.HttpStatus;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
+package demo.ipproxy.com.myapp.proxy;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.DelayQueue;
+
+import demo.ipproxy.com.myapp.redis.RedisStorage;
+import demo.ipproxy.com.myapp.util.HttpStatus;
 
 /**
  * Created by gaorui on 16/12/26.
