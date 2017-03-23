@@ -25,7 +25,7 @@ public class main implements Job {
         proxyPool = Client.proxyPool;
         System.out.println("#####爬虫ip池开始测试#####");
         int idleNum = proxyPool.getIdleNum();
-        for (int i = 0; i < idleNum; i++) {
+        while(proxyPool.getIdleNum()>0) {
             HttpProxy httpProxy = proxyPool.borrow();
             HttpStatus code = ProxyIpCheck.Check(httpProxy.getProxy());
             System.err.println(httpProxy.getProxy()+":"+code);
