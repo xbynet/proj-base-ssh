@@ -46,7 +46,7 @@ public class FileUtil {
 	}
 
 	public static String getCommonProp(String key){
-		Properties prop=loadPropertyFile("common.properties");
+		Properties prop=loadPropertyFile("conf/common.properties");
 		return prop.getProperty(key);
 	}
 	

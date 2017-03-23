@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.xpath.functions.FuncExtElementAvailable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -52,7 +51,7 @@ public class DynamicTest implements PageProcessor {
 		
     	Spider cnSpider = Spider.create(this).setDownloader(new SeleniumDownloader(5000,null,new TestAction()))
 //    			.addUrl("https://shop34068488.taobao.com/?spm=a230r.7195193.1997079397.2.JLFlPa")
-    			.addUrl("https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-7276872102.21.w5Qfbd&id=539743000108");
+    			.addUrl("https://item.taobao.com/item.htm?spm=2013.1.0.0.hL1zGE&scm=1007.11855.31966.100200300000006&id=536973301009&pvid=b80698be-4b20-4e11-8555-1293fc6c3dfd");
 //    			.addPipeline(new JsonFilePipeline("D:\\data\\webmagicfile.json"))
     	
     	//SpiderMonitor.instance().register(cnSpider);
