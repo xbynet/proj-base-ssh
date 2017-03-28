@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class StringUtils {
+import org.apache.commons.lang3.StringUtils;
+
+public class StringUtil extends StringUtils {
 	public static final boolean checkNotEmpty(String str){
 		if(str!=null&&!str.trim().equals("")){
 			return true;
@@ -84,13 +86,6 @@ public class StringUtils {
 		}
 		commaStr=commaStr.substring(0, commaStr.length()-1);
 		return commaStr;
-	}
-	public static boolean isEmpty(String str) {
-		return ((str == null) || (str.length() == 0));
-	}
-
-	public static boolean isNotEmpty(String str) {
-		return (!(isEmpty(str)));
 	}
 
 	/**
@@ -197,14 +192,14 @@ public class StringUtils {
 		}
 		return str.substring(pos + separator.length());
 	}
+	public static String lowerFirstChar(String str){
+		if(StringUtils.isNotBlank(str)){
+			String first=str.substring(0, 1).toLowerCase();
+			return first+str.substring(1);
+		}
+		return null;
+	}
 	public static void main(String[] args) {
-		System.out.println(columnToFieldName("is_aasAasd"));
-		System.out.println(toCommaString(new String[]{"aaa","bbb","ccc"}));
-		List<String> list=new ArrayList<>();
-		list.add("aaa");
-		list.add("bbb");
-		list.add("c");
-		System.out.println(toCommaString(list));
-		System.out.println("aaa".split(",")[0]);
+		System.out.println(lowerFirstChar("Fasas"));
 	}
 }

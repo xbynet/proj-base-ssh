@@ -10,7 +10,7 @@ public class TimestampConverter implements Converter<String, Timestamp>{
 	public Timestamp convert(String timeStr) {
 		// TODO Auto-generated method stub
 		Timestamp t=null;
-		if(StringUtils.checkNotEmpty(timeStr)){
+		if(StringUtil.checkNotEmpty(timeStr)){
 			long time=Long.valueOf(timeStr);
 			t=new Timestamp(time);
 		}

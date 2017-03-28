@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.xby1993.common.util.StringUtils;
+import net.xby1993.common.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +61,7 @@ public class CaptchaImageController {
     public String validCaptcha(HttpServletRequest request, HttpServletResponse response,@RequestParam("captchaCode")String captchaCode){
     	HttpSession session = request.getSession();
     	String code = (String)session.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-		if(StringUtils.checkEquals(code, captchaCode)){
+		if(StringUtil.checkEquals(code, captchaCode)){
 			return "true";
 		}
     	return "false";

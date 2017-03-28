@@ -1,5 +1,6 @@
 package net.xby1993.common.webmagic.downloader;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
@@ -38,13 +39,23 @@ public class WebDriverPool {
 		caps.setCapability(
 				PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
 				PHANTOMJS_PATH);
-		caps.setCapability("takesScreenshot", true);
+		caps.setCapability("takesScreenshot", false);
 		caps.setCapability(
 				PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX
 						+ "User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
+		ArrayList<String> cliArgsCap = new ArrayList<String>();
+		//http://phantomjs.org/api/command-line.html
+		cliArgsCap.add("--web-security=false");
+		cliArgsCap.add("--ssl-protocol=any");
+		cliArgsCap.add("--ignore-ssl-errors=true");
+		cliArgsCap.add("--load-images=false");
 		caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
-				"--load-images=no");
+				cliArgsCap);
+		caps.setCapability(
+				PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS,
+				new String[] {"--logLevel=INFO"});
+
 
 	}
 
@@ -87,7 +98,6 @@ public class WebDriverPool {
 
 	public void close(WebDriver webDriver) {
 		refCount.decrementAndGet();
-		webDriver.close();
 		webDriver.quit();
 		webDriver = null;
 	}

@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import net.xby1993.common.util.StringUtils;
+import net.xby1993.common.util.StringUtil;
 
 import org.hibernate.Criteria;
 import org.hibernate.LockMode;
@@ -396,8 +396,8 @@ public class BaseDao<T> extends HibernateDaoSupport implements DAO<T>{
 	protected long countHqlResult(final String hql, final Object... values) {
 		String fromHql = hql;
 		//select子句与order by子句会影响count查询,进行简单的排除.
-		fromHql = "from " + StringUtils.substringAfter(fromHql, "from");
-		fromHql = StringUtils.substringBefore(fromHql, "order by");
+		fromHql = "from " + StringUtil.substringAfter(fromHql, "from");
+		fromHql = StringUtil.substringBefore(fromHql, "order by");
 
 		String countHql = "select count(1) " + fromHql;
 
@@ -416,8 +416,8 @@ public class BaseDao<T> extends HibernateDaoSupport implements DAO<T>{
 	protected long countHqlResult(final String hql, final Map<String, ?> values) {
 		String fromHql = hql;
 		//select子句与order by子句会影响count查询,进行简单的排除.
-		fromHql = "from " + StringUtils.substringAfter(fromHql, "from");
-		fromHql = StringUtils.substringBefore(fromHql, "order by");
+		fromHql = "from " + StringUtil.substringAfter(fromHql, "from");
+		fromHql = StringUtil.substringBefore(fromHql, "order by");
 
 		String countHql = "select count(1) " + fromHql;
 
