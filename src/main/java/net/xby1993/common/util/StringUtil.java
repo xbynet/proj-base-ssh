@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class StringUtil extends StringUtils {
 	public static final boolean checkNotEmpty(String str){
@@ -198,6 +199,9 @@ public class StringUtil extends StringUtils {
 			return first+str.substring(1);
 		}
 		return null;
+	}
+	public static String getToString(Object obj){
+	    return ToStringBuilder.reflectionToString(obj);
 	}
 	public static void main(String[] args) {
 		System.out.println(lowerFirstChar("Fasas"));
