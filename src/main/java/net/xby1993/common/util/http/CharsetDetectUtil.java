@@ -35,7 +35,7 @@ public class CharsetDetectUtil {
     public static String detectCharset(String contentType, byte[] contentBytes) throws IOException {
         String charset=null;
         charset = getCharset(contentType);
-        if (StringUtils.isNotBlank(contentType)) {
+        if (StringUtils.isNotBlank(contentType) && StringUtils.isNotBlank(charset)) {
             logger.debug("charset: {}", charset);
             return charset;
         }
