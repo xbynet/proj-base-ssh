@@ -60,7 +60,7 @@ public class HttpReqUtil {
                 .setConnectionRequestTimeout(3000)
                 .setSocketTimeout(3000)
                 .setConnectTimeout(3000)
-                .setCookieSpec(CookieSpecs.BEST_MATCH);
+                .setCookieSpec(CookieSpecs.STANDARD);
 		
 		
 		if(headers!=null){
