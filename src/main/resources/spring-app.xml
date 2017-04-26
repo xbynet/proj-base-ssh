@@ -109,6 +109,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
                 <!-- 命名规则 My_NAME->MyName java驼峰变db下划线命名-->
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
 				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+				<!--#懒加载配置，防止no session -->
+                <prop name="hibernate.enable_lazy_load_no_trans">true</prop>
              </props>
          </property>
 	</bean>
