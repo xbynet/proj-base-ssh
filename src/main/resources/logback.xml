@@ -73,6 +73,21 @@
             </pattern>
         </encoder>
     </appender>
+    
+    <appender name="p6spyAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>${catalina.base}/logs/app/p6spy.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/app/p6spy-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>${maxhistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern> - %m%n</pattern>
+        </encoder>
+    </appender>
 <!-- 	<appender name="doubanAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">  
@@ -112,6 +127,11 @@
     <logger name="org.jooby" level="INFO">
     </logger>
     
+    <logger name="p6spy" level="INFO" additivity="false"> 
+		<appender-ref ref="p6spyAppender"/>
+		<appender-ref ref="ERROR"/>
+		<appender-ref ref="STDOUT1"/>
+    </logger>
 <!-- 	<logger name="com.music" level="INFO" additivity="false"> 
 		<appender-ref ref="musicAppender"/>
 		<appender-ref ref="ERROR"/>
