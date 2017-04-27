@@ -102,7 +102,7 @@
                 </beans:bean>
                 <beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
                 <beans:bean class="org.springframework.security.access.prepost.PreInvocationAuthorizationAdviceVoter">
-                    <beans:constructor-arg name="pre">
+                    <beans:constructor-arg index="0" >
                         <beans:bean class="org.springframework.security.access.expression.method.ExpressionBasedPreInvocationAdvice">
                             <beans:property name="expressionHandler" ref="methodSecurityExpressionHandler"/>
                         </beans:bean>

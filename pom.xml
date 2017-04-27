@@ -269,6 +269,12 @@
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
+		<!-- 数据源监控 -->
+		<dependency>
+    		<groupId>p6spy</groupId>
+    		<artifactId>p6spy</artifactId>
+    		<version>3.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

@@ -57,9 +57,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	<import resource="classpath:cxf-servlet.xml" />  --> 
 	
-	
+	<!--p6spy 监控-->
+<bean id="dataSource" class="com.p6spy.engine.spy.P6DataSource">
+    <constructor-arg ref="dataSourceTarget"></constructor-arg>
+</bean>
 	   <!-- 阿里 druid数据库连接池 -->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+    <bean id="dataSourceTarget" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <!-- 数据库基本信息配置 -->
         <property name="url" value="${ds.url}"/>
         <property name="username" value="${ds.username}"/>
