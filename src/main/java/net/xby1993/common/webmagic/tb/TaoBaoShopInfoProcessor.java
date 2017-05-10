@@ -3,9 +3,13 @@ package net.xby1993.common.webmagic.tb;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import net.xby1993.common.webmagic.downloader.ChromeWebDriverPool;
+import net.xby1993.common.webmagic.downloader.SeleniumAction;
+import net.xby1993.common.webmagic.downloader.SeleniumDownloader;
+import net.xby1993.common.webmagic.downloader.WebDriverPool;
+import net.xby1993.common.webmagic.downloader.WindowUtil;
 
 import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -19,10 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import net.xby1993.common.webmagic.downloader.SeleniumAction;
-import net.xby1993.common.webmagic.downloader.SeleniumDownloader;
-import net.xby1993.common.webmagic.downloader.WebDriverPool;
-import net.xby1993.common.webmagic.downloader.WindowUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -52,7 +52,7 @@ public class TaoBaoShopInfoProcessor implements PageProcessor {
 
     private AtomicBoolean isPageAdd = new AtomicBoolean(false);
     private static AtomicBoolean running = new AtomicBoolean(false);
-    private WebDriverPool pool=new WebDriverPool();
+    private WebDriverPool pool=new ChromeWebDriverPool();
     @Override
     public Site getSite() {
         return this.site;
@@ -163,11 +163,8 @@ public class TaoBaoShopInfoProcessor implements PageProcessor {
         if (running.compareAndSet(false, true)) {
             try {
    
-                List<String> urls = null;
-                if (urls == null) {
-                    log.error("店铺url获取异常,终止抓取");
-                }
-                String[] urlStrs=null;
+                List<String> urls = new ArrayList<>();
+                String[] urlStrs=new String[]{};
 //                int size=50;
                 int size=urls.size();
                 if(urls.size()<size){
@@ -185,10 +182,10 @@ public class TaoBaoShopInfoProcessor implements PageProcessor {
               //  "https://zhuzhuwo.taobao.com" urls.toArray(urlStrs)
                 Spider spider = Spider.create(this)
                         .setDownloader(new SeleniumDownloader(5000, pool, new TestAction()))
-                        .addUrl(urlStrs);
-                      //  .addUrl("https://zhuzhuwo.taobao.com");
+//                        .addUrl(urlStrs);
+                        .addUrl("https://zhuzhuwo.taobao.com");
 
-                spider.thread(5).run();
+                spider.thread(1).run();
                 log.info("淘宝店铺销售信息数据正常抓取完毕");
             } finally {
             	log.info("淘宝店铺销售信息数据抓取完毕,准备关闭webdriverpool");

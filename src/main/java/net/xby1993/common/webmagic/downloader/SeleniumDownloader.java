@@ -25,7 +25,7 @@ public class SeleniumDownloader  implements Downloader{
 	private static final Logger log=LoggerFactory.getLogger(SeleniumDownloader.class);
 	private int sleepTime=3000;//3s
 	private SeleniumAction action=null;
-	private WebDriverPool webDriverPool=new WebDriverPool();
+	private WebDriverPool webDriverPool=new PhantomjsWebDriverPool();
 	public SeleniumDownloader(){
 	}
 	public SeleniumDownloader(int sleepTime,WebDriverPool pool){

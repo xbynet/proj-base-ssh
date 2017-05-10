@@ -16,7 +16,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ChromeWebDriverPool {
+public class ChromeWebDriverPool implements WebDriverPool{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	private int CAPACITY = 5;
@@ -33,10 +33,12 @@ public class ChromeWebDriverPool {
 	private static DesiredCapabilities caps = DesiredCapabilities.chrome();
 	static {
 		DRIVER_PATH = FileUtil.getCommonProp("chrome.path");
+		
+		System.setProperty("webdriver.chrome.driver", FileUtil.getCommonProp("chrome.driver.path"));
 
 		ChromeOptions options = new ChromeOptions();
 //		options.addExtensions(new File("/path/to/extension.crx"))
-		options.setBinary(DRIVER_PATH);
+//		options.setBinary(DRIVER_PATH); //注意chrome和chromeDirver的区别
 		options.addArguments("test-type"); //ignore certificate errors
 		options.addArguments("headless");// headless mode
 		options.addArguments("disable-gpu"); 
