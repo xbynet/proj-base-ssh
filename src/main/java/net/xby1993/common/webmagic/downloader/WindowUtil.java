@@ -2,14 +2,19 @@ package net.xby1993.common.webmagic.downloader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * @author taojw
@@ -57,6 +62,39 @@ public class WindowUtil {
 			driver.switchTo().window(handles);
 		}
 	}
+	public static void changeWindowTo(WebDriver driver,String handle){
+		for (String tmp : driver.getWindowHandles()) {
+			if (tmp.equals(handle)){
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+	}
+	/**
+	 * 打开一个新tab页，返回该tab页的windowhandle
+	 * @param driver
+	 * @param url
+	 * @return
+	 */
+	public static String openNewTab(WebDriver driver,String url){
+		Set<String> strSet1=driver.getWindowHandles();
+		((JavascriptExecutor)driver).executeScript("window.open('"+url+"','_blank');");
+		sleep(1000);
+		Set<String> strSet2=driver.getWindowHandles();
+		for(String tmp:strSet2){
+			if(!strSet1.contains(tmp)){
+				return tmp;
+			}
+		}
+		return null;
+	}
+	public static void sleep(long millis){
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 操作关闭模态窗口
 	 * @param driver
@@ -65,6 +103,38 @@ public class WindowUtil {
 	 */
 	public static void clickModal(WebDriver driver,String type,String sel){
 		String js="document.getElementsBy"+type+"('"+sel+"')[0].click();";
+		((JavascriptExecutor)driver).executeScript(js);
+	}
+	/**
+	 * 判断一个元素是否存在
+	 * @param driver
+	 * @param by
+	 * @return
+	 */
+	public static boolean checkElementExists(WebDriver driver,By by){
+		try{
+			driver.findElement(by);
+			return true;
+		}catch(NoSuchElementException e){
+			return false;
+		}
+	}
+	/**
+	 * 点击一个元素
+	 * @param driver
+	 * @param by
+	 */
+	public static void clickElement(WebDriver driver,By by){
+		WebElement tmp=driver.findElement(by);
+		Actions actions=new Actions(driver);
+		actions.moveToElement(tmp).click().perform();
+	}
+	public static void clickElement(WebDriver driver,WebElement tmp){
+		Actions actions=new Actions(driver);
+		actions.moveToElement(tmp).click().perform();
+	}
+	public static void clickByJsCssSelector(WebDriver driver,String cssSelector){
+		String js="document.querySelector('"+cssSelector+"').click();";
 		((JavascriptExecutor)driver).executeScript(js);
 	}
 }
