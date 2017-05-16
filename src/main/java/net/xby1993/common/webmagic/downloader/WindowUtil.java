@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -136,5 +137,18 @@ public class WindowUtil {
 	public static void clickByJsCssSelector(WebDriver driver,String cssSelector){
 		String js="document.querySelector('"+cssSelector+"').click();";
 		((JavascriptExecutor)driver).executeScript(js);
+	}
+	public static Set<Cookie> getCookies(WebDriver driver){
+		Set<Cookie> allcookies = driver.manage().getCookies();
+		return allcookies;
+	}
+	public static void setCookies(WebDriver driver,Set<Cookie> cookies){
+		try {
+			for(Cookie cookie:cookies){
+				driver.manage().addCookie(cookie);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
