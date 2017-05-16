@@ -6,14 +6,14 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import net.xby1993.common.util.FileUtil;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.xby1993.common.util.FileUtil;
 
 /**
  * @author taojw
@@ -31,15 +31,27 @@ public class PhantomjsWebDriverPool implements WebDriverPool{
 	private BlockingDeque<WebDriver> innerQueue = new LinkedBlockingDeque<WebDriver>(
 			CAPACITY);
 
-	private static String PHANTOMJS_PATH;
-	private static DesiredCapabilities caps = DesiredCapabilities.phantomjs();
-	static {
+	private  String PHANTOMJS_PATH;
+	private  DesiredCapabilities caps = DesiredCapabilities.phantomjs();
+
+	public PhantomjsWebDriverPool() {
+		this(5,false);
+	}
+
+	/**
+	 * 
+	 * @param poolsize 
+	 * @param loadImg 是否加载图片，默认不加载
+	 */
+	public PhantomjsWebDriverPool(int poolsize,boolean loadImg) {
+		this.CAPACITY = poolsize;
+		innerQueue = new LinkedBlockingDeque<WebDriver>(poolsize);
 		PHANTOMJS_PATH = FileUtil.getCommonProp("phantomjs.path");
 		caps.setJavascriptEnabled(true);
 		caps.setCapability(
 				PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
 				PHANTOMJS_PATH);
-		caps.setCapability("takesScreenshot", false);
+//		caps.setCapability("takesScreenshot", false);
 		caps.setCapability(
 				PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX
 						+ "User-Agent",
@@ -49,22 +61,17 @@ public class PhantomjsWebDriverPool implements WebDriverPool{
 		cliArgsCap.add("--web-security=false");
 		cliArgsCap.add("--ssl-protocol=any");
 		cliArgsCap.add("--ignore-ssl-errors=true");
-		cliArgsCap.add("--load-images=false");
+		if(loadImg){
+			cliArgsCap.add("--load-images=true");
+		}else{
+			cliArgsCap.add("--load-images=false");
+		}
 		caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
 				cliArgsCap);
 		caps.setCapability(
 				PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS,
 				new String[] {"--logLevel=INFO"});
-
-
-	}
-
-	public PhantomjsWebDriverPool() {
-	}
-
-	public PhantomjsWebDriverPool(int poolsize) {
-		this.CAPACITY = poolsize;
-		innerQueue = new LinkedBlockingDeque<WebDriver>(poolsize);
+		
 	}
 
 	public WebDriver get() throws InterruptedException {
@@ -114,3 +121,5 @@ public class PhantomjsWebDriverPool implements WebDriverPool{
 		}
 	}
 }
+		
+

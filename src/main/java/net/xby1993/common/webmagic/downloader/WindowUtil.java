@@ -44,6 +44,9 @@ public class WindowUtil {
 		driver.manage().window().setSize(new Dimension(width, (int)height));
 		driver.navigate().refresh();
 	}
+	public static void refresh(WebDriver driver){
+		driver.navigate().refresh();
+	}
 	public static void taskScreenShot(WebDriver driver,File saveFile){
 		File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		try {
@@ -150,5 +153,28 @@ public class WindowUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public static void setCookies2(WebDriver driver,Set<Cookie> cookies){
+		//Phantomjs存在Cookie设置bug,只能通过js来设置了。
+		StringBuilder sb=new StringBuilder();
+		for(Cookie cookie:cookies){
+			String js="document.cookie=\""+cookie.getName()+"="+cookie.getValue()+";path="+cookie.getPath()+";domain="+cookie.getDomain()+"\";";
+			sb.append(js);
+		}
+		((JavascriptExecutor)driver).executeScript(sb.toString());
+	}
+	
+	public static String getHttpCookieString(Set<Cookie> cookies){
+		String httpCookie="";
+		int index=0;
+		for(Cookie c:cookies){
+			index++;
+			if(index==cookies.size()){
+				httpCookie+=c.getName()+"="+c.getValue();
+			}else{
+				httpCookie+=c.getName()+"="+c.getValue()+"; ";
+			}
+		}
+		return httpCookie;
 	}
 }
