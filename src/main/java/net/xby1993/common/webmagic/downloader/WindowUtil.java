@@ -141,6 +141,9 @@ public class WindowUtil {
 		String js="document.querySelector('"+cssSelector+"').click();";
 		((JavascriptExecutor)driver).executeScript(js);
 	}
+	public static Object execJs(WebDriver driver,String js){
+		return ((JavascriptExecutor)driver).executeScript(js);
+	}
 	public static Set<Cookie> getCookies(WebDriver driver){
 		Set<Cookie> allcookies = driver.manage().getCookies();
 		return allcookies;
