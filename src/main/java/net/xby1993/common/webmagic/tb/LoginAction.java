@@ -1,4 +1,4 @@
-package net.xby1993.common.webmagic.tb;
+/*package net.xby1993.common.webmagic.tb;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,3 +97,4 @@ public class LoginAction implements SeleniumAction {
 				d.width + 10, d.height + 10));
 	}
 }
+*/

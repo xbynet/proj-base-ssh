@@ -1,4 +1,4 @@
-package net.xby1993.common.webmagic.tb;
+/*package net.xby1993.common.webmagic.tb;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -457,3 +457,4 @@ public class AlimamaSpider implements PageProcessor {
 		}
 	}
 }
+*/

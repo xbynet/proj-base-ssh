@@ -1,9 +1,9 @@
-package demo;
+/*package demo;
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 import static org.bytedeco.javacpp.opencv_highgui.*;	//imshow()位于此
 import static org.bytedeco.javacpp.opencv_imgproc.*;	//COLOR_RGB2GRAY
-/*import org.opencv.core.Core;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
@@ -12,14 +12,14 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.objdetect.CascadeClassifier;*/
+import org.opencv.objdetect.CascadeClassifier;
 
 //http://blog.csdn.net/poem_qianmo/article/details/19925819 opencv的包结构
 public class OpenCVTest {
-	/**
+	*//**
 	 * 人脸识别 http://docs.opencv.org/2.4.4-beta/doc/tutorials/introduction/desktop_java/java_dev_intro.html
-	 */
-/*	public void testFaceDetect() {
+	 *//*
+	public void testFaceDetect() {
 		System.out.println("\nRunning DetectFaceDemo");
 
 		// Create a face detector from the cascade file in the resources
@@ -47,11 +47,11 @@ public class OpenCVTest {
 		System.out.println(String.format("Writing %s", filename));
 		Highgui.imwrite(filename, image);
 	}
-*/
-	/**
+
+	*//**
 	 * 灰度化、二值化 http://blog.csdn.net/liyuqian199695/article/details/53925046
-	 */
-/*	public void testThresh() {
+	 *//*
+	public void testThresh() {
 		try {
 			
 			// 读取原图像
@@ -71,11 +71,11 @@ public class OpenCVTest {
 		} catch (Exception e) {
 			System.out.println("error: " + e.getMessage());
 		}
-	}*/
+	}
 
-	/**
+	*//**
 	 * javacv方式灰度化、二值化 http://blog.csdn.net/liyuqian199695/article/details/53931756
-	 */
+	 *//*
 	public void testjavacv(){
 		Mat image=imread("D:\\code\\lena.png");	//加载图像
 		if(image.empty())	
@@ -101,3 +101,4 @@ public class OpenCVTest {
 		new OpenCVTest().testjavacv();
 	}
 }
+*/

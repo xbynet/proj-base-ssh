@@ -115,7 +115,7 @@ public interface DAO<T> {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public Page<T> findPageForResults(DetachedCriteria criteria,List<Order> orders,
+	public Page2<T> findPageForResults(DetachedCriteria criteria,List<Order> orders,
             int pageNo, int pageSize);
 	/**
 	 * 创建与会话无关的检索标准对象

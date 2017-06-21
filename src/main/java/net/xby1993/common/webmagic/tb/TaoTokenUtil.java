@@ -1,4 +1,4 @@
-package net.xby1993.common.webmagic.tb;
+/*package net.xby1993.common.webmagic.tb;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,3 +56,4 @@ public class TaoTokenUtil {
 		return raw;
 	}
 }
+*/

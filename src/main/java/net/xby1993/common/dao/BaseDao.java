@@ -211,7 +211,7 @@ public class BaseDao<T> extends HibernateDaoSupport implements DAO<T>{
         return (List<T>) this.getHibernateTemplate().findByCriteria(detachedCriteria, startIndex, pageSize);
     }
     @Override
-	public Page<T> findPageForResults(DetachedCriteria criteria,List<Order> orders,
+	public Page2<T> findPageForResults(DetachedCriteria criteria,List<Order> orders,
             int pageNo, int pageSize){
     	if(orders!=null){
     		for(Order order:orders){
@@ -226,7 +226,7 @@ public class BaseDao<T> extends HibernateDaoSupport implements DAO<T>{
       //criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.setResultTransformer (Criteria.ROOT_ENTITY ); //使用了关联类查询要设置这个，不然返回的是 object【】类型
         List<T> list=(List<T>) getHibernateTemplate().findByCriteria(criteria, startIndex, pageNo);
-        Page<T> results=new Page<>();
+        Page2<T> results=new Page2<>();
         results.setPageNo(pageNo);
         results.setPageSize(pageSize);
         results.setPageCount(results.getTotalPages());
@@ -340,12 +340,12 @@ public class BaseDao<T> extends HibernateDaoSupport implements DAO<T>{
 	 * @param values 数量可变的查询参数,按顺序绑定.
 	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
 	 */
-	public Page<T> findPage(final String hql,int pageNo,int pageSize, final Object... values) {
+	public Page2<T> findPage(final String hql,int pageNo,int pageSize, final Object... values) {
 		
 
 		Query q = createQuery(hql, values);
 
-		Page<T> page = new Page<T>();
+		Page2<T> page = new Page2<T>();
 		
 		page.setPageNo(pageNo);
 		long totalCount = countHqlResult(hql, values);
@@ -372,9 +372,9 @@ public class BaseDao<T> extends HibernateDaoSupport implements DAO<T>{
 	 * @param pageSize 总页数.
 	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
 	 */
-	public Page<T> findPage(final String hql,int pageNo,int pageSize, final Map<String, ?> values) {
+	public Page2<T> findPage(final String hql,int pageNo,int pageSize, final Map<String, ?> values) {
 		Query q = createQuery(hql, values);
-		Page<T> page = new Page<T>();
+		Page2<T> page = new Page2<T>();
 		
 		page.setPageNo(pageNo);
 		long totalCount = countHqlResult(hql, values);

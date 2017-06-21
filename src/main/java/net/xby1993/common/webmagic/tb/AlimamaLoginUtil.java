@@ -1,4 +1,4 @@
-package net.xby1993.common.webmagic.tb;
+/*package net.xby1993.common.webmagic.tb;
 
 import net.xby1993.common.webmagic.downloader.PhantomjsWebDriverPool;
 import net.xby1993.common.webmagic.downloader.WebDriverPool;
@@ -31,3 +31,4 @@ public class AlimamaLoginUtil {
 		}
 	}
 }
+*/
