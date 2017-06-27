@@ -36,17 +36,20 @@ import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.util.Assert;
 
 
 @SuppressWarnings("unchecked")
-public class HibernateServiceBi<T extends BaseEntity2, PK extends Serializable> {
+public class HibernateServiceBi<T extends BaseEntity, PK extends Serializable> {
 	private Logger log=LoggerFactory.getLogger(HibernateServiceBi.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	@Autowired
+	protected JdbcTemplate jdbcTemplate;
 	
 	private HibernateTemplate template;
 	
@@ -117,7 +120,7 @@ public class HibernateServiceBi<T extends BaseEntity2, PK extends Serializable> 
 			public Void doInHibernate(Session paramSession)
 					throws HibernateException {
 				for (PK id : ids) {
-					paramSession.delete(id);
+					paramSession.delete(get(id));
 				}
 				return null;
 			}
@@ -392,7 +395,7 @@ public class HibernateServiceBi<T extends BaseEntity2, PK extends Serializable> 
 	/**
 	 * 分组查询/// 
 	 */
-	public List<Object> find(final List<Criterion> criterions,final String[] aliasNames,final List<Order> orders,final ProjectionList pList) {
+	public List<Object> find(final List<Criterion> criterions,final String[] aliasNames,final List<Order> orders,	final ProjectionList pList) {
 	
 		//pList.add(Projections.property("firm.name"));
 		//pList.add(Projections.groupProperty(group));
@@ -754,7 +757,8 @@ public class HibernateServiceBi<T extends BaseEntity2, PK extends Serializable> 
 		}
 
 		// 执行Count查询
-		int totalCount = (Integer) c.setProjection(Projections.count("id")).uniqueResult();
+		Object tmp = c.setProjection(Projections.count("id")).uniqueResult();
+		int totalCount = Integer.valueOf(tmp == null ? "-1" : tmp.toString());
 
 		// 将之前的Projection,ResultTransformer和OrderBy条件重新设回去
 		c.setProjection(projection);
@@ -787,7 +791,7 @@ public class HibernateServiceBi<T extends BaseEntity2, PK extends Serializable> 
 	});
   }
   
-  public Integer getCount(DetachedCriteria detachedCriteria) {
+  public Integer getCount(final DetachedCriteria detachedCriteria) {
       // 设置记录数投影
       detachedCriteria.setProjection(Projections.rowCount());
       List<Long> list = (List<Long>) this.getTemplate().findByCriteria(detachedCriteria);
@@ -824,7 +828,7 @@ public class HibernateServiceBi<T extends BaseEntity2, PK extends Serializable> 
 			}
 			Class<?> clz = f.getType();
 			String name = f.getName();
-			if (clz.isPrimitive() || (!BaseEntity2.class.isAssignableFrom(clz))) {
+			if (clz.isPrimitive() || (!BaseEntity.class.isAssignableFrom(clz))) {
 				continue;
 			}
 			try {
